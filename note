@@ -1,0 +1,108 @@
+https://www.youtube.com/watch?v=fGT6aKJpXdY
+
+
+To install Apache Kafka on your local Ubuntu machine, including Zookeeper, follow these steps:
+
+### Step 1: Install Java
+
+Kafka requires Java. If you haven't installed it yet, you can do so with:
+
+```bash
+sudo apt update
+sudo apt install default-jdk
+```
+
+You can verify the installation with:
+
+```bash
+java -version
+```
+
+### Step 2: Download Kafka
+
+1. **Navigate to the `/tmp` directory** (or any directory where you want to download Kafka):
+
+   ```bash
+   cd /tmp
+   ```
+
+2. **Download Kafka**:
+
+   Use `wget` to download the latest version of Kafka. You can check for the latest version on the [Apache Kafka download page](https://kafka.apache.org/downloads).
+
+   For example:
+
+   ```bash
+   wget https://downloads.apache.org/kafka/<version>/kafka_2.13-<version>.tgz
+   ```
+
+   Replace `<version>` with the latest version number.
+
+3. **Extract the Downloaded Archive**:
+
+   ```bash
+   tar -xzf kafka_2.13-<version>.tgz
+   ```
+
+4. **Move to the Kafka Directory**:
+
+   ```bash
+   cd kafka_2.13-<version>
+   ```
+
+### Step 3: Start Zookeeper and Kafka
+
+1. **Start Zookeeper**:
+
+   You can start Zookeeper using the following command:
+
+   ```bash
+   bin/zookeeper-server-start.sh config/zookeeper.properties
+   ```
+
+2. **Start Kafka Broker**:
+
+   Open another terminal window (keeping Zookeeper running) and run:
+
+   ```bash
+   bin/kafka-server-start.sh config/server.properties
+   ```
+
+### Step 4: Verify Kafka is Running
+
+You can create a topic to check if Kafka is running:
+
+1. **Create a Topic**:
+
+   In a new terminal, run:
+
+   ```bash
+   bin/kafka-topics.sh --create --topic test --bootstrap-server localhost:9092 --partitions 1 --replication-factor 1
+   ```
+
+2. **List Topics**:
+
+   To verify the topic was created:
+
+   ```bash
+   bin/kafka-topics.sh --list --bootstrap-server localhost:9092
+   ```
+
+### Step 5: Cleanup (Optional)
+
+If you want to stop the services, you can use the following commands in the terminal where Zookeeper and Kafka are running:
+
+- For Zookeeper:
+  ```bash
+  bin/zookeeper-server-stop.sh
+  ```
+
+- For Kafka:
+  ```bash
+  bin/kafka-server-stop.sh
+  ```
+
+### Notes
+
+- Ensure that the commands are executed in the directory where Kafka was extracted.
+- If you encounter any issues during this process, feel free to ask for further assistance!
